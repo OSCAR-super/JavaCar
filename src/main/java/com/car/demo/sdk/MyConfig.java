@@ -29,12 +29,12 @@ public class MyConfig extends WXPayConfig {
 
     @Override
     public String getMchID() {
-        return "1603097268";
+        return "*";
     }
 
     @Override
     public String getKey() {
-        return "cx13579cx13579cx13579cx13579ABCD";
+        return "*";
     }
 
     @Override
