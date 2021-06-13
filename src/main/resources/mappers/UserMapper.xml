@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.car.demo.dao.mapper.UserMapper">
+    <insert id="signIn">
+       INSERT INTO user VALUES (#{openId},null,null,null,null,null)
+    </insert>
+    <insert id="creatForum">
+       INSERT INTO forum VALUES (#{forumId},#{title},#{category},#{content},#{fileName},#{openId},"ok")
+    </insert>
+    <insert id="bindingPlate">
+       INSERT INTO plate VALUES (#{openId},#{plateNumber})
+    </insert>
+    <insert id="setbinding">
+       INSERT INTO relatives VALUES (#{openIdM},#{openIdS})
+    </insert>
+    <select id="verifyPlate" resultType="String">
+        SELECT userOpenId FROM plate where plateNumber=#{plateNumber}
+    </select>
+    <select id="ybinding" resultType="String">
+        SELECT openIdS FROM relatives where openIdS=#{openIdS} and openIdM=#{openIdM}
+    </select>
+    <select id="getbinding" resultType="String">
+        SELECT openIdS FROM relatives where openIdM=#{openIdM}
+    </select>
+    <select id="getbindingM" resultType="String">
+        SELECT openIdM FROM relatives where openIdS=#{openIdS}
+    </select>
+    <select id="getUser" resultType="com.car.demo.dao.entity.User">
+        SELECT * FROM user where openId=#{openId}
+    </select>
+    <select id="getPlate" resultType="String">
+        SELECT plateNumber FROM plate where userOpenId=#{openId}
+    </select>
+    <select id="getForum" resultType="com.car.demo.dao.entity.Forum">
+        SELECT * FROM forum where forumId=#{forumId} and state="ok"
+    </select>
+    <select id="getRandomForum" resultType="com.car.demo.dao.entity.Forum">
+        SELECT * FROM forum where state="ok"
+    </select>
+    <select id="getMyForum" resultType="com.car.demo.dao.entity.Forum">
+        SELECT * FROM forum where state="ok" and openId=#{openId}
+    </select>
+    <update id="setIndex">
+        UPDATE user set sex=#{sex},birthday=#{birthday},contactInformation=#{contactInformation},abstractPersion=#{abstractPersion} where openId=#{openId}
+    </update>
+    <update id="deleteForum">
+        UPDATE forum set state="delete" where forumId=#{forumId}
+    </update>
+    <delete id="deletePlate">
+        DELETE FROM plate WHERE userOpenId=#{openId} and plateNumber=#{plateNumber}
+    </delete>
+    <delete id="deletebinding">
+        DELETE FROM relatives where openIdS=#{openIdS} and openIdM=#{openIdM}
+    </delete>
+</mapper>
