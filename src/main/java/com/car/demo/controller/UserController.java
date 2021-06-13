@@ -48,7 +48,7 @@ public class UserController {
         JSONObject object = new JSONObject();
         object.put("grant_type","client_credential");
         object.put("appid","wxc53bb2124ced8b83");
-        object.put("secret","038060f8928874d1aed5fbda3477af78");
+        object.put("secret","*");
         JSONObject jsonObject = null;
         jsonObject = CommonUtil.httpsRequestJson("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxc53bb2124ced8b83&secret=038060f8928874d1aed5fbda3477af78", "GET", object.toJSONString());
         return    jsonObject;
@@ -175,7 +175,7 @@ public class UserController {
         //小程序的appid
         String appId = "wxc53bb2124ced8b83";
         // 小程序的secret
-        String appsecret = "038060f8928874d1aed5fbda3477af78";
+        String appsecret = "*";
 
         //向微信服务器 使用登录凭证 code 获取 session_key 和 openid
         // 请求参数
@@ -202,12 +202,12 @@ public class UserController {
             //生成6位验证码
             String verifyCode = String.valueOf(new Random().nextInt(899999) + 100000);
             //发送短信
-            ZhenziSmsClient client = new ZhenziSmsClient("https://sms_developer.zhenzikj.com","106387", "N2U4Yjg2ZWQtMjg2OS00ZTY5LWE1ZGUtNDBmM2Q2MTRjM2Iz");
+            ZhenziSmsClient client = new ZhenziSmsClient("https://sms_developer.zhenzikj.com","*", "*");
             Map<String, Object> params = new HashMap<String, Object>();
             String[] i={verifyCode};
             params.put("templateParams",i);
             params.put("number", phoneNumber);
-            params.put("templateId","1119");
+            params.put("templateId","*");
             String result = client.send(params);
             json = JSONObject.parseObject(result);
             if(json.getIntValue("code") != 0){//发送短信失败
